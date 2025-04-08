@@ -26,7 +26,7 @@ export class AuthController {
         return this.auhService.login(loginData);
     }
 
-    @Post('verify-email')
+    @Post('verify')
     verifyEmail(@Body() emailData: VerifyEmailDto) {
         if (!emailData) {
             throw new HttpException(

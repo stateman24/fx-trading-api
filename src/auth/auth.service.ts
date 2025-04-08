@@ -18,6 +18,7 @@ import { JwtService } from '@nestjs/jwt';
 import { generateOtp } from 'src/utils/otpGenerator.utils';
 import { VerifyEmailDto } from './dto/verifyEmail.dto';
 import { MailService } from 'src/mail/mail.service';
+import { WalletService } from 'src/wallet/wallet.service';
 
 @Injectable()
 export class AuthService {
@@ -25,6 +26,7 @@ export class AuthService {
         @InjectRepository(User) private userRepo: Repository<User>,
         private jwtService: JwtService,
         private mailSevice: MailService,
+        private walletService: WalletService,
     ) {}
 
     async register(createUserDto: CreateUserDto) {
@@ -112,6 +114,8 @@ export class AuthService {
         user.expireOtp = null;
 
         await this.userRepo.save(user);
+        await this.walletService.createDefaultWallets(user);
+        return { message: 'Email verified successfully' };
     }
 
     async resendOtp(emailData) {

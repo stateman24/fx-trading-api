@@ -2,8 +2,10 @@ import {
     Column,
     CreateDateColumn,
     Entity,
+    OneToMany,
     PrimaryGeneratedColumn,
 } from 'typeorm';
+import { Wallet } from 'src/wallet/wallet.entitiy';
 
 @Entity()
 export class User {
@@ -30,6 +32,9 @@ export class User {
 
     @Column({ default: false })
     isActive: boolean;
+
+    @OneToMany(() => Wallet, (wallet: Wallet) => wallet.user)
+    wallets: Wallet[];
 
     @CreateDateColumn()
     createdAt: Date;
