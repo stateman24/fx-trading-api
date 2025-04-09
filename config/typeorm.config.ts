@@ -3,6 +3,7 @@ import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { User } from 'src/users/users.entity';
 import { Wallet } from 'src/wallet/wallet.entitiy';
+import { Transcations } from 'src/transcations/transactions.entitiy';
 
 export const typeOrmConfigAsync = {
     imports: [ConfigModule.forRoot({ isGlobal: true })],
@@ -14,7 +15,7 @@ export const typeOrmConfigAsync = {
         username: configService.get('DB_USERNAME'),
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_NAME'),
-        entities: [User, Wallet],
+        entities: [User, Wallet, Transcations],
         synchronize: true,
         logging: true,
     }),

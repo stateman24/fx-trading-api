@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import {
+    Body,
     Controller,
     Get,
     NotFoundException,
@@ -11,6 +12,7 @@ import {
 } from '@nestjs/common';
 import { WalletService } from './wallet.service';
 import { AuthGuard } from '@nestjs/passport';
+import { FundConversionDto } from './dto/conversion.dto';
 
 @UseGuards(AuthGuard('jwt'))
 @Controller('wallet')
@@ -35,6 +37,13 @@ export class WalletController {
             throw new NotFoundException('User not found');
         }
         const wallet = this.walletService.fundWallet(userId, fundData);
+        return wallet;
+    }
+
+    @Post('convert')
+    convert(@Req() req: Request, @Body() convertionData: FundConversionDto) {
+        const userId: string = req['user'].id;
+        const wallet = this.walletService.convertFunds(userId, convertionData);
         return wallet;
     }
 }

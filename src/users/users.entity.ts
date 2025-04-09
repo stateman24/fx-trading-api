@@ -6,6 +6,7 @@ import {
     PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Wallet } from 'src/wallet/wallet.entitiy';
+import { Transcations } from 'src/transcations/transactions.entitiy';
 
 @Entity()
 export class User {
@@ -35,6 +36,12 @@ export class User {
 
     @OneToMany(() => Wallet, (wallet: Wallet) => wallet.user)
     wallets: Wallet[];
+
+    @OneToMany(
+        () => Transcations,
+        (transactions: Transcations) => transactions.user,
+    )
+    transactions: Transcations[];
 
     @CreateDateColumn()
     createdAt: Date;
