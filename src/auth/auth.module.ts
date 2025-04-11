@@ -4,10 +4,10 @@ import { AuthService } from './auth.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
-import { User } from 'src/users/users.entity';
 import { JwtStrategy } from './jwt.stategy';
-import { MailService } from 'src/mail/mail.service';
-import { WalletModule } from 'src/wallet/wallet.module';
+import { User } from '../users/users.entity';
+import { WalletModule } from '../wallet/wallet.module';
+import { MailService } from '../mail/mail.service';
 
 @Module({
     controllers: [AuthController],

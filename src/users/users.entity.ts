@@ -5,8 +5,8 @@ import {
     OneToMany,
     PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Wallet } from 'src/wallet/wallet.entitiy';
-import { Transcations } from 'src/transcations/transactions.entitiy';
+import { Wallet } from '../wallet/wallet.entitiy';
+import { Transcations } from '../transcations/transactions.entitiy';
 
 @Entity()
 export class User {

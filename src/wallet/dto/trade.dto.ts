@@ -1,7 +1,7 @@
 import { IsEnum, IsNumber, Min } from 'class-validator';
 import { Currency } from '../wallet.entitiy';
 
-export class FundConversionDto {
+export class TradeDto {
     @IsEnum(Currency)
     sourceCurrency: Currency;
 

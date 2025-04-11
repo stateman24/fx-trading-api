@@ -9,16 +9,16 @@ import {
     UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from 'src/users/users.entity';
+import { User } from '../users/users.entity';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/createUser.dto';
 import * as bcrypt from 'bcrypt';
 import { LoginUserDto } from './dto/loginUser.dto';
 import { JwtService } from '@nestjs/jwt';
-import { generateOtp } from 'src/utils/otpGenerator.utils';
+import { generateOtp } from '../utils/otpGenerator.utils';
 import { VerifyEmailDto } from './dto/verifyEmail.dto';
-import { MailService } from 'src/mail/mail.service';
-import { WalletService } from 'src/wallet/wallet.service';
+import { MailService } from '../mail/mail.service';
+import { WalletService } from '../wallet/wallet.service';
 
 @Injectable()
 export class AuthService {

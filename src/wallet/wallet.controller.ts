@@ -13,6 +13,7 @@ import {
 import { WalletService } from './wallet.service';
 import { AuthGuard } from '@nestjs/passport';
 import { FundConversionDto } from './dto/conversion.dto';
+import { TradeDto } from './dto/trade.dto';
 
 @UseGuards(AuthGuard('jwt'))
 @Controller('wallet')
@@ -45,5 +46,12 @@ export class WalletController {
         const userId: string = req['user'].id;
         const wallet = this.walletService.convertFunds(userId, convertionData);
         return wallet;
+    }
+
+    @Post('trade')
+    trade(@Req() req: Request, @Body() tradeData: TradeDto) {
+        const userId: string = req['user'].id;
+        const tradeResult = this.walletService.trade(userId, tradeData);
+        return tradeResult;
     }
 }

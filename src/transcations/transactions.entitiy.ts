@@ -1,4 +1,4 @@
-import { User } from 'src/users/users.entity';
+import { User } from '../users/users.entity';
 import {
     Column,
     CreateDateColumn,
@@ -11,6 +11,9 @@ import {
 export class Transcations {
     @PrimaryGeneratedColumn('uuid')
     id: string;
+
+    @Column({ nullable: true })
+    description: string;
 
     @Column()
     userId: string;
