@@ -124,4 +124,19 @@ describe('Wallet E2E testing', () => {
             .expect(201);
         expect(res.body).toEqual(resMessage);
     });
+
+    it('should trade between 2 currency Pairs', async () => {
+        const tradeData = {
+            sourceCurrency: 'NGN',
+            targetCurrency: 'USD',
+            amount: 10,
+        };
+        const resMessage = `Trade successful for ${tradeData.sourceCurrency}${tradeData.targetCurrency} trade pair`;
+        const res = await request(app.getHttpServer())
+            .post('/wallet/trade')
+            .set('Authorization', `Bearer ${jwtToken}`)
+            .send(tradeData)
+            .expect(201);
+        expect(res.body.message).toEqual(resMessage);
+    });
 });
