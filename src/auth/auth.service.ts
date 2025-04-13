@@ -52,7 +52,7 @@ export class AuthService {
         await this.mailSevice.sendOtp(newUser.email, otp); // send OTP to the new user
         await this.userRepo.save(newUser);
         console.log(`OTP for ${newUser.email}: ${otp}`);
-        return { message: 'Verfication OTP sent to your email' };
+        return { message: 'Verification OTP sent to your email' };
     }
 
     async login(lognUserdto: LoginUserDto) {
