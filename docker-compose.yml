@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  api:
+    build: .
+    container_name: fx_trading_api
+    restart: always
+    env_file:
+      - .env.production
+    ports:
+      - "80:3000"
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15
+    container_name: fx_trading_db
+    restart: always
+    environment:
+      POSTGRES_DB: fx_trading_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  db_data:
