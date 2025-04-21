@@ -1,23 +1,16 @@
-## Build Stage
-FROM node:23-alpine AS build
+FROM node:lts
 
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
+
 COPY . .
-RUN npm run build
-
-## Production Stage
-FROM node:23-alpine
-
-WORKDIR /app
-COPY --from=build /app/dist ./dist
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
+COPY .env.production .env.production
 
-COPY package*.json ./
-RUN npm install --only=production 
+RUN npm run build
 
 EXPOSE 3000
 
-CMD ["npm", "run", "start:prod"]
+CMD ["node", "dist/main"]
