@@ -44,7 +44,7 @@ describe('Auth E2E Testing', () => {
         };
         const resMessage = 'Verification OTP sent to your email';
         const res = await request(app.getHttpServer())
-            .post('/auth/register')
+            .post('/auth/v1/register')
             .send(requestBody)
             .expect(201);
         expect(res.body.message).toEqual(resMessage);
@@ -67,7 +67,7 @@ describe('Auth E2E Testing', () => {
         };
 
         const res = await request(app.getHttpServer())
-            .post('/auth/verify')
+            .post('/auth/v1/verify')
             .send(requestBody)
             .expect(201);
 
@@ -80,7 +80,7 @@ describe('Auth E2E Testing', () => {
             password: password,
         };
         const res = await request(app.getHttpServer())
-            .post('/auth/login')
+            .post('/auth/v1/login')
             .send(requestBody)
             .expect(201);
         expect(res.body.accessToken).toBeDefined();

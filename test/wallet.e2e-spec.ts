@@ -40,7 +40,7 @@ describe('Wallet E2E testing', () => {
         };
 
         await request(app.getHttpServer())
-            .post('/auth/register')
+            .post('/v1/auth/register')
             .send(registerData)
             .expect(201);
 
@@ -59,7 +59,7 @@ describe('Wallet E2E testing', () => {
         };
 
         await request(app.getHttpServer())
-            .post('/auth/verify')
+            .post('/v1/auth/verify')
             .send(verifyEmailData)
             .expect(201);
 
@@ -70,7 +70,7 @@ describe('Wallet E2E testing', () => {
         };
 
         const res = await request(app.getHttpServer())
-            .post('/auth/login')
+            .post('/v1/auth/login')
             .send(loginData)
             .expect(201);
 
@@ -83,7 +83,7 @@ describe('Wallet E2E testing', () => {
 
     it('should get user wallet', async () => {
         const res = await request(app.getHttpServer())
-            .get('/wallet')
+            .get('/v1/wallet')
             .set('Authorization', `Bearer ${jwtToken}`)
             .expect(200);
         const wallets = res.body;
@@ -103,7 +103,7 @@ describe('Wallet E2E testing', () => {
         const resMessage = { message: 'Wallet funded successfully' };
 
         const res = await request(app.getHttpServer())
-            .post('/wallet/fund')
+            .post('/v1/wallet/fund')
             .set('Authorization', `Bearer ${jwtToken}`)
             .send(fundData)
             .expect(201);
@@ -118,7 +118,7 @@ describe('Wallet E2E testing', () => {
         };
         const resMessage = { message: 'Funds converted successfully' };
         const res = await request(app.getHttpServer())
-            .post('/wallet/convert')
+            .post('/v1/wallet/convert')
             .set('Authorization', `Bearer ${jwtToken}`)
             .send(conversionData)
             .expect(201);
@@ -133,7 +133,7 @@ describe('Wallet E2E testing', () => {
         };
         const resMessage = `Trade successful for ${tradeData.sourceCurrency}${tradeData.targetCurrency} trade pair`;
         const res = await request(app.getHttpServer())
-            .post('/wallet/trade')
+            .post('/v1/wallet/trade')
             .set('Authorization', `Bearer ${jwtToken}`)
             .send(tradeData)
             .expect(201);
