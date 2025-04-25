@@ -86,6 +86,21 @@ export class WalletController {
     @ApiResponse({
         status: 201,
         description: 'Returns Trade Data',
+        examples: {
+            'application/json': {
+                summary: 'Trade Data',
+                value: {
+                    id: '12345',
+                    userId: '67890',
+                    currencyPair: 'BTC/USDT',
+                    amount: 0.5,
+                    price: 50000,
+                    status: 'completed',
+                    createdAt: '2023-10-01T12:00:00Z',
+                    updatedAt: '2023-10-01T12:00:00Z',
+                },
+            },
+        },
     })
     @ApiResponse({ status: 404, description: 'Wallet not found' })
     @ApiResponse({ status: 401, description: 'Unauthorized' })

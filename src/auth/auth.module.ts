@@ -8,6 +8,7 @@ import { JwtStrategy } from './jwt.stategy';
 import { User } from '../users/users.entity';
 import { WalletModule } from '../wallet/wallet.module';
 import { MailService } from '../mail/mail.service';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
     controllers: [AuthController],
@@ -15,11 +16,15 @@ import { MailService } from '../mail/mail.service';
     imports: [
         TypeOrmModule.forFeature([User]),
         PassportModule,
-        JwtModule.register({
-            secret: process.env.JWT_SECRET,
-            signOptions: { expiresIn: '1h' },
-        }),
         WalletModule,
+        JwtModule.registerAsync({
+            imports: [ConfigModule],
+            useFactory: (configService: ConfigService) => ({
+                secretOrPrivateKey: configService.get<string>('jwt.secret'),
+                signOptions: { expiresIn: '15m' },
+            }),
+            inject: [ConfigService],
+        }),
     ],
 })
 export class AuthModule {}

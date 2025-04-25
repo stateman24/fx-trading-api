@@ -10,7 +10,6 @@ export default () => ({
     },
     jwt: {
         secret: process.env.JWT_SECRET,
-        expiresIn: process.env.JWT_EXPIRATION,
     },
     mail: {
         user: process.env.MAIL_USER,
