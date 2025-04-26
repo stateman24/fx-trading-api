@@ -1,16 +1,37 @@
-FROM node:lts
+# Stage 1: Build the app
+FROM node:lts as builder
 
 WORKDIR /app
+
+# Only copy the package.json and package-lock.json first
 COPY package*.json ./
+
+# Install dependencies
 RUN npm install
 
 COPY . .
-ARG NODE_ENV=production
-ENV NODE_ENV=${NODE_ENV}
-COPY .env.production .env.production
 
 RUN npm run build
 
+# Stage 2: Run the app
+FROM node:lts-slim
+
+WORKDIR /app
+
+# Only copy the built app and necessary files
+COPY --from=builder /app/package*.json ./
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/.env.production .env.production
+
+# Install only production dependencies
+RUN npm install --only=production
+
+# Set environment variables
+ENV NODE_ENV=production
+ENV PORT=8000
+
+# Expose the port
 EXPOSE 8000
 
-CMD ["node", "dist/main"]
+# Run the app
+CMD ["node", "dist/main.js"]
