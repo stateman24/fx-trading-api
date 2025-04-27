@@ -1,5 +1,5 @@
 # Stage 1: Build the app
-FROM node:lts as builder
+FROM node:22-alpine AS builder
 
 WORKDIR /app
 
@@ -14,7 +14,7 @@ COPY . .
 RUN npm run build
 
 # Stage 2: Run the app
-FROM node:lts-slim
+FROM node:22-alpine
 
 WORKDIR /app
 
@@ -29,9 +29,8 @@ RUN npm install --only=production
 # Set environment variables
 ENV NODE_ENV=production
 ENV PORT=8000
-
 # Expose the port
 EXPOSE 8000
 
 # Run the app
-CMD ["node", "dist/main.js"]
+CMD ["npm", "run", "start:prod"]

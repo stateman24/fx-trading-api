@@ -4,6 +4,9 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: fx_trading_api
+    volumes:
+      - .:/app
+      - /app/dist
     ports:
       - '8000:8000'
     env_file:
@@ -18,9 +21,9 @@ services:
     ports:
       - '5432:5432'
     environment:
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: 'fx_trading_user'
+      POSTGRES_PASSWORD: 'fx_trading_pass'
+      POSTGRES_DB: 'fx_trading_db'
     volumes:
       - postgres_data:/var/lib/postgresql/data
     restart: always
